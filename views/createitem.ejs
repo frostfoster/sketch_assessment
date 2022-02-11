@@ -2,7 +2,7 @@
 <body>
     <form style=" background-color: #eee; padding:5%; border-radius:5px;" method="POST">
 
-        <div style="width: 100%;justify-content: center; align-items: center; text-align: center;"><h1>Editing Profile </h1></div>
+        <div style="width: 100%;justify-content: center; align-items: center; text-align: center;"><h1>Add an item</h1></div>
         <% if(error=="ER_DUP_ENTRY"){ %>
             <div class="alert alert-danger" role="alert">
             Account already exist. Please sign in
@@ -14,20 +14,20 @@
 <%    } %>
         <div class="form-group">
         <label for="username">Item Name</label>
-        <input type="text" class="form-control" id="item_name" aria-describedby="emailHelp" placeholder="Enter username" name="item_name" required>
+        <input type="text" class="form-control" id="item_name" aria-describedby="emailHelp" placeholder="Name of the item" name="item_name" required>
     </div>
     <div class="form-group">
         <label for="password">Item Category</label>
-        <input type="text" class="form-control" id="item_category" aria-describedby="emailHelp" placeholder="Enter password" name="item_category" required>
+        <input type="text" class="form-control" id="item_category" aria-describedby="emailHelp" placeholder="Category of the item" name="item_category" required>
     </div>
     <div class="row">
         <div class="col">
             <label for="fname">Item Quantity</label>
-            <input type="text" class="form-control" id="item_quantity" aria-describedby="emailHelp" placeholder="Enter first name"  name="item_quantity" required>
+            <input type="text" class="form-control" id="item_quantity" aria-describedby="emailHelp" placeholder="Quantity of the item"  name="item_quantity" required>
         </div>
         <div class="col">
             <label for="lname">Item Price</label>
-            <input type="number" class="form-control" id="item_price" aria-describedby="emailHelp" placeholder="Enter lastname"  name="item_price" required>
+            <input type="number" class="form-control" id="item_price" aria-describedby="emailHelp" placeholder="Price of the item"  name="item_price" required>
         </div>
     </div>
     <!-- Allows user to create account (username, password, first name,

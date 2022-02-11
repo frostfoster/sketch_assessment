@@ -27,7 +27,7 @@ const db = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database : 'love'
+  database : 'sketch2'
 });
 db.connect((err)=>{
     if (err) {
@@ -46,7 +46,7 @@ app.set('view engine','ejs');
 app.get("/itemsforsale",(req,res)=>{
 
   
-        const sql=`SELECT * FROM love.items;`
+        const sql=`SELECT * FROM sketch2.items;`
             db.query(sql, (err, results) => {
                 if (results.length!=0){
 
@@ -194,7 +194,7 @@ app.all("/edititem/:id",(req,res)=>{
     var id_param=req.params;
     var session= req.session
     if(req.session.userid!=null){
-    const sql=`UPDATE love.items SET item_name='${params.item_name}', item_category='${params.item_category}',item_quantity='${params.item_quantity}',item_price='${params.item_price}' WHERE id= '${id_param.id}';`
+    const sql=`UPDATE sketch2.items SET item_name='${params.item_name}', item_category='${params.item_category}',item_quantity='${params.item_quantity}',item_price='${params.item_price}' WHERE id= '${id_param.id}';`
         db.query(sql, (err, rows) => {
             console.log(sql)
             res.redirect("/user_homepage")
@@ -206,7 +206,7 @@ app.all("/edititem/:id",(req,res)=>{
     var params=req.params;
     var session= req.session
     if(req.session.userid!=null){
-        const sql=`SELECT * FROM love.items WHERE id = '${params.id}';`
+        const sql=`SELECT * FROM sketch2.items WHERE id = '${params.id}';`
             db.query(sql, (err, results) => {
                 if (results.length!=0){
 
@@ -222,13 +222,13 @@ app.all("/edititem/:id",(req,res)=>{
             res.redirect("/")
         }
    
-}
+}} )
 
 app.get("/deleteitem/:id",(req,res)=>{
     if(req.session.userid!=null){
     id_params=req.params.id;
 
-    const sql=`DELETE FROM love.items WHERE id='${id_params}'`;
+    const sql=`DELETE FROM sketch2.items WHERE id='${id_params}'`;
         db.query(sql,(err1,results1)=>{
             console.log(sql)
             if (err1) throw err1;
@@ -241,7 +241,6 @@ app.get("/deleteitem/:id",(req,res)=>{
    
 });
  
-})
 app.all("/createitem",(req,res)=>{
     if (req.method=="POST"){
         var params=req.body;
@@ -253,7 +252,7 @@ app.all("/createitem",(req,res)=>{
         const unique_id=uuid.v4()
         params.item_code=unique_id
            
-        const sql="INSERT INTO love.items SET ?";
+        const sql="INSERT INTO sketch2.items SET ?";
         
         db.query(sql,params,(err1,results1)=>{
             if (err1) throw err1;
@@ -279,9 +278,9 @@ app.all("/createitem",(req,res)=>{
 })
 app.all("/user_homepage",(req,res)=>{
         var session=req.session
-        const sqlyarn=`SELECT * FROM love.items `;
+        const sqlyarn=`SELECT * FROM sketch2.items `;
 
-        // const sql1= `SELECT * FROM love.order WHERE user_id=${req.session.userid.id}`
+        // const sql1= `SELECT * FROM sketch.order WHERE user_id=${req.session.userid.id}`
         console.log(sqlyarn)
         
         console.log("Hahaha"+session.userid.id)

@@ -1,100 +1,33 @@
 <%- include('base') -%>
-<!-- Full screen modal -->
 
-    <!-- <div class="modal fade" id="modal_update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Updating Application Form</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <% if(data!=null) { %>
-                <h3 style="text-align: center;">Your Order List </h1>
-                  <label for="dateholder">Order ID</label>
-                  <input type="text" class="form-control" id="dateholder" name="dateholder" disabled>
-            <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Item Name</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Quantity</th>
-                        
-                       
-                      </tr>
-                    </thead>
-                    <tbody>
-                       
-                        <% var existing_grp="";
-                        for (let i = 0; i < data.length; i++) {
-                            if (existing_grp=true){
-                             
-                            %>
-                           
-                            <tr class="table-primary">
-                            <%  } else{ %>
-                                <tr class="table-warning">
-                                    <% } %>
-                                <th scope="row"><%= i+1 %></th>
-                                <td><%= data[i].item_name %></td>
-                                <td><%= data[i].item_category %></td>
-                                <td><%= data[i].item_quantity %></td>
-                                
-                                
-                                 <% } } else { %>
-                        <h3 style="text-align: center;">You currently do not have any record.</h1>
-            <% } %>
-                     
-                    </tbody>
-                  </table>
-            </div>
-     
-          </div>
-        </div>
-  </div> -->
- 
-<div class="card" style="width:100%;">
-    <div class="card-body">
-        <% if(locals.operation!=null && locals.operation=="add"){ %>
-            <div class="alert alert-success" role="alert">
-            Character added. Please wait for an admin to approve it.
-              </div>
-              <% } else if(operation=="edit"){ %>
-  <div class="alert alert-danger" role="alert">
-              Edited.
-              </div>
-<%    } %>
       <h1 class="card-title">Hello, <%= locals.user_data.username.name|| "World" %></h5>
       <h6 class="card-subtitle mb-2 text-muted">This is your dashboard</h6>
-      <p class="card-text">This is where you can see your application status</p>
+      <p class="card-text">This is where you can see your items List</p>
  
-      <div class="card-group">
+      <!-- <div class="card-group">
  
         <div class="card border-primary mb-3">
           <div class="card-body">
             <h5 class="card-title">Settings</h5>
             <p class="card-text">Edit your user profile.</p>
             <a href="/editprofile/<%= user_data.userid.id %>" class="card-link">Edit Profile</a>
-         
+ 
           </div>
-         
+ 
         </div>
  
-      </div>
+      </div> -->
       <% if (user_data.role.role=="admin"){ %>
         <div class="card border-primary mb-3">
           <div class="card-body">
             <h5 class="card-title">Add Item</h5>
             <p class="card-text">Add an Item</p>
             <a href="/createitem" class="card-link">Add an Item</a>
-         
+ 
           </div>
-         
+ 
         </div>
-        
+ 
      <% } %>
       <begin>
  
@@ -105,53 +38,59 @@
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Item Name</th>
+                        <th scope="col">Item Code</th>
                         <th scope="col">Category</th>
                         <th scope="col">Quantity</th>
                         <th scope="col">Price</th>
-                        <th scope="col">Actions</th>
-                        
-                       
+                        <th scope="col">Update</th>
+                        <!-- <th scope="col">Delete</th> -->
+                        <th scope="col">Status</th>
+ 
                       </tr>
                     </thead>
                     <tbody>
-                       
-                        <% var existing_grp="";
+ 
+                        <% 
                         for (let i = 0; i < data.length; i++) {
-                            if (existing_grp=true){
-                             
+ 
+ 
                             %>
-                           
-                            <tr class="table-primary">
-                            <%  } else { %>
+ 
+ 
+                            <%   if (data[i].item_quantity<=0) { %>
                                 <tr class="table-warning">
-                                    <% } %>
+                                    <% } else{ %>
+                                <tr class="table-primary"></tr>
+                                  <%  } %>
                                 <th scope="row"><%= i+1 %></th>
                                 <td><%= data[i].item_name %></td>
+                                <td><%= data[i].item_code %></td>
                                 <td><%= data[i].item_category %></td>
                                 <td><%= data[i].item_quantity %></td>
                                 <td><%= data[i].item_price %></td>
-                                <% if (user_data.role.role=="admin"){ %>  <td><a class="btn btn-info pull-left" style="color: white; " href="/edititem/<%= data[i].id %>" >Edit Item</a></td>
-                                
+                                <% if (user_data.role.role=="admin"){ %>  
+                                  <td><a class="btn btn-info pull-left" style="color: white; " href="/edititem/<%= data[i].id %>" >Edit Item</a></td>
+                                  <!-- <td><a class="btn btn-info pull-left" style="color: white; " href="/deleteitem/<%= data[i].id %>" >Delete Item</a></td> -->
                                 <% } if(data[i].item_quantity!=0){ %>
                                  <td><a class="btn btn-primary pull-left" style="color: white; " >Available</a></td>
-                                  
+ 
                               <%  } else { %>
                                 <td><a class="btn btn-secondary pull-left" style="color: white; " >Unavailable</a></td>
                                  <% } } } else { %>
                         <h3 style="text-align: center;">You currently do not have any record.</h1>
             <% } %>
-                     
+ 
                     </tbody>
                   </table>
 </begin>
-   
+ 
   </div>
   <script type="text/javascript">
   if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
     }
-   
-     
+ 
+ 
  
     $("#modal_update").on("submit",(e)=>{
         // alert("pumasok")
@@ -170,12 +109,12 @@
  
     const updateData=(data)=>
     {
-   
+ 
         // alert("Hello"+data.id)
         $(`input[name=dateholder]`).val(data.order_group);
         var text_price = $('.table').find(`#order_dates`).text(); 
         alert($("#dateholder").val());
-       
+ 
     }
  
  
